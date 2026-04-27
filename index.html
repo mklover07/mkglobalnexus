@@ -368,7 +368,7 @@ async function submitReport(){
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.className='form-msg error';msg.textContent='[ ERROR ] Valid email required.';return;}
   const btn=document.querySelector('.btn-submit');btn.textContent='[ SUBMITTING... ]';btn.disabled=true;
   try{
-    const res=await fetch('/https://mkglobalnexus.onrender.com/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,mobile,email,case_title,details})});
+    const res=await fetch('https://mkglobalnexus.onrender.com/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,mobile,email,case_title,details})});
     const data=await res.json();
     if(res.ok){msg.className='form-msg success';msg.textContent=`[ SUCCESS ] Case ID: ${data.case_id}. Team will contact you in 48 hours.`;document.querySelectorAll('.form-input,.form-textarea').forEach(el=>el.value='');}
     else throw new Error();
