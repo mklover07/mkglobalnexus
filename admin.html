@@ -6,582 +6,94 @@
 <title>Admin Panel — MK Global Nexus</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
-:root {
-  --black: #020408;
-  --deep-navy: #040d1a;
-  --navy: #071428;
-  --blue-dark: #0a1f3d;
-  --neon: #00d4ff;
-  --neon-dim: #0099bb;
-  --neon-glow: rgba(0,212,255,0.15);
-  --accent: #0057ff;
-  --white: #e8f4ff;
-  --grey: #7a9ab5;
-  --grey-dim: #3a5570;
-  --red: #ff2244;
-  --green: #00ff88;
-  --yellow: #ffcc00;
-  --font-display: 'Orbitron', monospace;
-  --font-body: 'Rajdhani', sans-serif;
-  --font-mono: 'Share Tech Mono', monospace;
-}
+:root{--black:#020408;--deep-navy:#040d1a;--navy:#071428;--blue-dark:#0a1f3d;--neon:#00d4ff;--neon-glow:rgba(0,212,255,0.15);--accent:#0057ff;--white:#e8f4ff;--grey:#7a9ab5;--grey-dim:#3a5570;--red:#ff2244;--green:#00ff88;--yellow:#ffcc00;--font-display:'Orbitron',monospace;--font-body:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);font-size:16px;min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--deep-navy);}::-webkit-scrollbar-thumb{background:var(--neon);}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 16px;
-  min-height: 100vh;
-}
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--black);z-index:1000;}
+#loginScreen.hidden{display:none;}
+.login-box{background:var(--deep-navy);border:1px solid rgba(0,212,255,0.2);padding:3rem 2.5rem;width:100%;max-width:400px;position:relative;}
+.login-box::before{content:'[ SECURE ADMIN ACCESS ]';font-family:var(--font-mono);font-size:0.55rem;color:var(--neon);letter-spacing:3px;position:absolute;top:-10px;left:20px;background:var(--deep-navy);padding:0 8px;}
+.login-logo{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--neon);letter-spacing:3px;text-align:center;margin-bottom:0.3rem;}
+.login-sub{font-family:var(--font-mono);font-size:0.6rem;color:var(--grey);letter-spacing:3px;text-align:center;margin-bottom:2.5rem;}
+.login-group{margin-bottom:1.2rem;}
+.login-label{display:block;font-family:var(--font-mono);font-size:0.6rem;color:var(--neon);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;}
+.login-input{width:100%;background:rgba(0,0,0,0.5);border:1px solid var(--grey-dim);color:var(--white);font-family:var(--font-mono);font-size:0.9rem;padding:12px 14px;outline:none;transition:border-color 0.3s;}
+.login-input:focus{border-color:var(--neon);}
+.login-btn{width:100%;background:var(--neon);color:var(--black);border:none;padding:14px;font-family:var(--font-display);font-size:0.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;margin-top:0.5rem;transition:all 0.3s;}
+.login-btn:hover{background:var(--white);}
+.login-err{margin-top:1rem;padding:10px 14px;font-family:var(--font-mono);font-size:0.65rem;letter-spacing:2px;background:rgba(255,34,68,0.1);border:1px solid var(--red);color:var(--red);display:none;}
+.login-err.show{display:block;}
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--deep-navy); }
-::-webkit-scrollbar-thumb { background: var(--neon); }
-
-/* ====== LOGIN SCREEN ====== */
-#loginScreen {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--black);
-  z-index: 1000;
-}
-
-#loginScreen.hidden { display: none; }
-
-.login-box {
-  background: var(--deep-navy);
-  border: 1px solid rgba(0,212,255,0.2);
-  padding: 3rem 2.5rem;
-  width: 100%;
-  max-width: 400px;
-  position: relative;
-}
-
-.login-box::before {
-  content: '[ SECURE ADMIN ACCESS ]';
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  color: var(--neon);
-  letter-spacing: 3px;
-  position: absolute;
-  top: -10px; left: 20px;
-  background: var(--deep-navy);
-  padding: 0 8px;
-}
-
-.login-logo {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--neon);
-  letter-spacing: 3px;
-  text-align: center;
-  margin-bottom: 0.3rem;
-}
-
-.login-sub {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--grey);
-  letter-spacing: 3px;
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.login-group { margin-bottom: 1.2rem; }
-.login-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--neon);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.login-input {
-  width: 100%;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid var(--grey-dim);
-  color: var(--white);
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  padding: 12px 14px;
-  outline: none;
-  transition: border-color 0.3s;
-}
-.login-input:focus { border-color: var(--neon); }
-
-.login-btn {
-  width: 100%;
-  background: var(--neon);
-  color: var(--black);
-  border: none;
-  padding: 14px;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: all 0.3s;
-}
-.login-btn:hover { background: var(--white); }
-
-.login-err {
-  margin-top: 1rem;
-  padding: 10px 14px;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  background: rgba(255,34,68,0.1);
-  border: 1px solid var(--red);
-  color: var(--red);
-  display: none;
-}
-.login-err.show { display: block; }
-
-/* ====== DASHBOARD ====== */
-#dashboard { display: none; position: relative; z-index: 1; }
-#dashboard.active { display: block; }
-
-/* SIDEBAR */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: 240px;
-  background: var(--deep-navy);
-  border-right: 1px solid rgba(0,212,255,0.1);
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-}
-
-.sidebar-brand {
-  padding: 1.5rem 1.5rem 1.2rem;
-  border-bottom: 1px solid rgba(0,212,255,0.08);
-}
-
-.sidebar-brand .brand {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--neon);
-  letter-spacing: 2px;
-  display: block;
-}
-
-.sidebar-brand .sub {
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  color: var(--grey);
-  letter-spacing: 3px;
-  display: block;
-  margin-top: 2px;
-}
-
-.sidebar-nav {
-  flex: 1;
-  padding: 1.5rem 0;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 1.5rem;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--grey);
-  cursor: pointer;
-  transition: all 0.3s;
-  border-left: 2px solid transparent;
-  text-decoration: none;
-}
-
-.nav-item:hover, .nav-item.active {
-  color: var(--neon);
-  background: rgba(0,212,255,0.05);
-  border-left-color: var(--neon);
-}
-
-.nav-icon { font-size: 1rem; }
-
-.sidebar-footer {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(0,212,255,0.08);
-}
-
-.logout-btn {
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--red);
-  color: var(--red);
-  padding: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.logout-btn:hover { background: rgba(255,34,68,0.1); }
-
-/* MAIN */
-.main-content {
-  margin-left: 240px;
-  min-height: 100vh;
-  background: var(--black);
-}
-
-.topbar {
-  background: var(--deep-navy);
-  border-bottom: 1px solid rgba(0,212,255,0.08);
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.topbar-title {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.topbar-info {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--grey);
-  letter-spacing: 2px;
-}
-
-.page-body { padding: 2rem; }
-
-/* STAT CARDS */
-.stat-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.stat-card {
-  background: var(--deep-navy);
-  border: 1px solid rgba(0,212,255,0.08);
-  padding: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 2px;
-}
-
-.stat-card.blue::before { background: var(--neon); }
-.stat-card.red::before { background: var(--red); }
-.stat-card.yellow::before { background: var(--yellow); }
-.stat-card.green::before { background: var(--green); }
-
-.stat-card-num {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 0.4rem;
-}
-.stat-card.blue .stat-card-num { color: var(--neon); }
-.stat-card.red .stat-card-num { color: var(--red); }
-.stat-card.yellow .stat-card-num { color: var(--yellow); }
-.stat-card.green .stat-card-num { color: var(--green); }
-
-.stat-card-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--grey);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-/* TABLE */
-.table-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.table-title {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.search-box {
-  background: var(--deep-navy);
-  border: 1px solid var(--grey-dim);
-  color: var(--white);
-  padding: 8px 14px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  outline: none;
-  width: 220px;
-  transition: border-color 0.3s;
-}
-.search-box:focus { border-color: var(--neon); }
-
-.table-wrap {
-  background: var(--deep-navy);
-  border: 1px solid rgba(0,212,255,0.08);
-  overflow: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 700px;
-}
-
-thead {
-  background: var(--navy);
-  border-bottom: 1px solid rgba(0,212,255,0.12);
-}
-
-th {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--neon);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  padding: 12px 16px;
-  text-align: left;
-  white-space: nowrap;
-}
-
-td {
-  padding: 12px 16px;
-  font-size: 0.88rem;
-  color: var(--grey);
-  border-bottom: 1px solid rgba(0,212,255,0.04);
-  vertical-align: middle;
-}
-
-tr:hover td { background: rgba(0,212,255,0.03); color: var(--white); }
-
-.td-name { color: var(--white); font-weight: 600; }
-.td-title { color: var(--white); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.td-id { font-family: var(--font-mono); font-size: 0.7rem; color: var(--neon); }
-.td-date { font-family: var(--font-mono); font-size: 0.7rem; white-space: nowrap; }
-
-.status-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  border-radius: 2px;
-  white-space: nowrap;
-}
-
-.status-badge.pending { background: rgba(255,204,0,0.15); color: var(--yellow); border: 1px solid rgba(255,204,0,0.3); }
-.status-badge.investigating { background: rgba(0,212,255,0.1); color: var(--neon); border: 1px solid rgba(0,212,255,0.3); }
-.status-badge.closed { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
-
-.action-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-
-.btn-action {
-  background: transparent;
-  border: 1px solid var(--grey-dim);
-  color: var(--grey);
-  padding: 4px 10px;
-  font-family: var(--font-mono);
-  font-size: 0.58rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-.btn-action:hover { border-color: var(--neon); color: var(--neon); }
-.btn-action.danger:hover { border-color: var(--red); color: var(--red); }
-.btn-action.success:hover { border-color: var(--green); color: var(--green); }
+/* DASHBOARD */
+#dashboard{display:none;position:relative;z-index:1;}
+#dashboard.active{display:block;}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:240px;background:var(--deep-navy);border-right:1px solid rgba(0,212,255,0.1);display:flex;flex-direction:column;z-index:100;}
+.sidebar-brand{padding:1.5rem 1.5rem 1.2rem;border-bottom:1px solid rgba(0,212,255,0.08);}
+.sidebar-brand .brand{font-family:var(--font-display);font-size:0.75rem;font-weight:700;color:var(--neon);letter-spacing:2px;display:block;}
+.sidebar-brand .sub{font-family:var(--font-mono);font-size:0.5rem;color:var(--grey);letter-spacing:3px;display:block;margin-top:2px;}
+.sidebar-nav{flex:1;padding:1.5rem 0;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px 1.5rem;font-family:var(--font-body);font-size:0.85rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--grey);cursor:pointer;transition:all 0.3s;border-left:2px solid transparent;text-decoration:none;}
+.nav-item:hover,.nav-item.active{color:var(--neon);background:rgba(0,212,255,0.05);border-left-color:var(--neon);}
+.sidebar-footer{padding:1rem 1.5rem;border-top:1px solid rgba(0,212,255,0.08);}
+.logout-btn{width:100%;background:transparent;border:1px solid var(--red);color:var(--red);padding:10px;font-family:var(--font-mono);font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.logout-btn:hover{background:rgba(255,34,68,0.1);}
+.main-content{margin-left:240px;min-height:100vh;background:var(--black);}
+.topbar{background:var(--deep-navy);border-bottom:1px solid rgba(0,212,255,0.08);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar-title{font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:var(--white);letter-spacing:3px;text-transform:uppercase;}
+.topbar-info{font-family:var(--font-mono);font-size:0.6rem;color:var(--grey);letter-spacing:2px;}
+.page-body{padding:2rem;}
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem;}
+.stat-card{background:var(--deep-navy);border:1px solid rgba(0,212,255,0.08);padding:1.5rem;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;}
+.stat-card.blue::before{background:var(--neon);}.stat-card.red::before{background:var(--red);}.stat-card.yellow::before{background:var(--yellow);}.stat-card.green::before{background:var(--green);}
+.stat-card-num{font-family:var(--font-display);font-size:2rem;font-weight:700;line-height:1;margin-bottom:0.4rem;}
+.stat-card.blue .stat-card-num{color:var(--neon);}.stat-card.red .stat-card-num{color:var(--red);}.stat-card.yellow .stat-card-num{color:var(--yellow);}.stat-card.green .stat-card-num{color:var(--green);}
+.stat-card-label{font-family:var(--font-mono);font-size:0.6rem;color:var(--grey);letter-spacing:3px;text-transform:uppercase;}
+.table-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;}
+.table-title{font-family:var(--font-display);font-size:0.8rem;font-weight:700;color:var(--white);letter-spacing:3px;text-transform:uppercase;}
+.search-box{background:var(--deep-navy);border:1px solid var(--grey-dim);color:var(--white);padding:8px 14px;font-family:var(--font-mono);font-size:0.75rem;outline:none;width:220px;transition:border-color 0.3s;}
+.search-box:focus{border-color:var(--neon);}
+.table-wrap{background:var(--deep-navy);border:1px solid rgba(0,212,255,0.08);overflow:auto;}
+table{width:100%;border-collapse:collapse;min-width:700px;}
+thead{background:var(--navy);border-bottom:1px solid rgba(0,212,255,0.12);}
+th{font-family:var(--font-mono);font-size:0.6rem;color:var(--neon);letter-spacing:3px;text-transform:uppercase;padding:12px 16px;text-align:left;white-space:nowrap;}
+td{padding:12px 16px;font-size:0.88rem;color:var(--grey);border-bottom:1px solid rgba(0,212,255,0.04);vertical-align:middle;}
+tr:hover td{background:rgba(0,212,255,0.03);color:var(--white);}
+.td-name{color:var(--white);font-weight:600;}.td-title{color:var(--white);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.td-id{font-family:var(--font-mono);font-size:0.7rem;color:var(--neon);}.td-date{font-family:var(--font-mono);font-size:0.7rem;white-space:nowrap;}
+.status-badge{display:inline-block;padding:3px 10px;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;border-radius:2px;white-space:nowrap;}
+.status-badge.pending{background:rgba(255,204,0,0.15);color:var(--yellow);border:1px solid rgba(255,204,0,0.3);}
+.status-badge.investigating{background:rgba(0,212,255,0.1);color:var(--neon);border:1px solid rgba(0,212,255,0.3);}
+.status-badge.closed{background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.3);}
+.action-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.btn-action{background:transparent;border:1px solid var(--grey-dim);color:var(--grey);padding:4px 10px;font-family:var(--font-mono);font-size:0.58rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-action:hover{border-color:var(--neon);color:var(--neon);}.btn-action.danger:hover{border-color:var(--red);color:var(--red);}
 
 /* MODAL */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(2,4,8,0.9);
-  z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  display: none;
-}
-.modal-overlay.open { display: flex; }
-
-.modal-box {
-  background: var(--deep-navy);
-  border: 1px solid rgba(0,212,255,0.2);
-  padding: 2rem;
-  width: 100%;
-  max-width: 600px;
-  position: relative;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.modal-title {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--neon);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px solid rgba(0,212,255,0.1);
-}
-
-.modal-close {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  background: none;
-  border: none;
-  color: var(--grey);
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-.modal-close:hover { color: var(--red); }
-
-.detail-row { margin-bottom: 1rem; }
-.detail-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--neon);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.detail-value { font-size: 0.95rem; color: var(--white); line-height: 1.7; }
-
-.status-select {
-  background: var(--navy);
-  border: 1px solid var(--grey-dim);
-  color: var(--white);
-  padding: 8px 12px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  outline: none;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 4px;
-}
-
-.notes-input {
-  width: 100%;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid var(--grey-dim);
-  color: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  padding: 10px 14px;
-  outline: none;
-  resize: vertical;
-  min-height: 80px;
-  margin-top: 4px;
-}
-
-.modal-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
-
-.btn-modal {
-  flex: 1;
-  padding: 12px;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s;
-}
-
-.btn-modal.save { background: var(--neon); color: var(--black); }
-.btn-modal.save:hover { background: var(--white); }
-.btn-modal.cancel { background: transparent; border: 1px solid var(--grey-dim); color: var(--grey); }
-.btn-modal.cancel:hover { border-color: var(--neon); color: var(--neon); }
-.btn-modal.del { background: transparent; border: 1px solid var(--red); color: var(--red); }
-.btn-modal.del:hover { background: rgba(255,34,68,0.15); }
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 2rem; right: 2rem;
-  background: var(--deep-navy);
-  border: 1px solid var(--neon);
-  color: var(--neon);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  padding: 12px 20px;
-  z-index: 9999;
-  transform: translateY(100px);
-  opacity: 0;
-  transition: all 0.4s;
-  max-width: 300px;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-.toast.error { border-color: var(--red); color: var(--red); }
-
-/* NO DATA */
-.no-data {
-  text-align: center;
-  padding: 4rem 2rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--grey-dim);
-  letter-spacing: 3px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .sidebar { display: none; }
-  .main-content { margin-left: 0; }
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(2,4,8,0.9);z-index:500;display:none;align-items:center;justify-content:center;padding:2rem;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--deep-navy);border:1px solid rgba(0,212,255,0.2);padding:2rem;width:100%;max-width:600px;position:relative;max-height:80vh;overflow-y:auto;}
+.modal-title{font-family:var(--font-display);font-size:0.8rem;font-weight:700;color:var(--neon);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.5rem;padding-bottom:0.8rem;border-bottom:1px solid rgba(0,212,255,0.1);}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--grey);font-size:1.2rem;cursor:pointer;transition:color 0.3s;}
+.modal-close:hover{color:var(--red);}
+.detail-row{margin-bottom:1rem;}
+.detail-label{font-family:var(--font-mono);font-size:0.6rem;color:var(--neon);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;}
+.detail-value{font-size:0.95rem;color:var(--white);line-height:1.7;}
+.status-select{background:var(--navy);border:1px solid var(--grey-dim);color:var(--white);padding:8px 12px;font-family:var(--font-mono);font-size:0.7rem;outline:none;cursor:pointer;width:100%;margin-top:4px;}
+.notes-input{width:100%;background:rgba(0,0,0,0.5);border:1px solid var(--grey-dim);color:var(--white);font-family:var(--font-body);font-size:0.9rem;padding:10px 14px;outline:none;resize:vertical;min-height:80px;margin-top:4px;}
+.modal-actions{display:flex;gap:1rem;margin-top:1.5rem;}
+.btn-modal{flex:1;padding:12px;font-family:var(--font-display);font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.3s;}
+.btn-modal.save{background:var(--neon);color:var(--black);}.btn-modal.save:hover{background:var(--white);}
+.btn-modal.cancel{background:transparent;border:1px solid var(--grey-dim);color:var(--grey);}.btn-modal.cancel:hover{border-color:var(--neon);color:var(--neon);}
+.btn-modal.del{background:transparent;border:1px solid var(--red);color:var(--red);}.btn-modal.del:hover{background:rgba(255,34,68,0.15);}
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--deep-navy);border:1px solid var(--neon);color:var(--neon);font-family:var(--font-mono);font-size:0.7rem;letter-spacing:2px;padding:12px 20px;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.4s;max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}.toast.error{border-color:var(--red);color:var(--red);}
+.no-data{text-align:center;padding:4rem 2rem;font-family:var(--font-mono);font-size:0.75rem;color:var(--grey-dim);letter-spacing:3px;}
+.loading{text-align:center;padding:2rem;font-family:var(--font-mono);font-size:0.7rem;color:var(--neon);letter-spacing:3px;}
+@media(max-width:768px){.sidebar{display:none;}.main-content{margin-left:0;}}
 </style>
 </head>
 <body>
@@ -592,147 +104,128 @@ tr:hover td { background: rgba(0,212,255,0.03); color: var(--white); }
     <div class="login-logo">MK GLOBAL NEXUS</div>
     <div class="login-sub">ADMIN CONTROL PANEL</div>
     <div class="login-group">
-      <label class="login-label" for="adminUser">Username</label>
+      <label class="login-label">Username</label>
       <input class="login-input" type="text" id="adminUser" placeholder="Enter username" autocomplete="off">
     </div>
     <div class="login-group">
-      <label class="login-label" for="adminPass">Password</label>
-      <input class="login-input" type="password" id="adminPass" placeholder="Enter password" onkeydown="if(event.key==='Enter') doLogin()">
+      <label class="login-label">Password</label>
+      <input class="login-input" type="password" id="adminPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button class="login-btn" onclick="doLogin()">SECURE LOGIN →</button>
     <div class="login-err" id="loginErr">[ ERROR ] Invalid credentials. Access denied.</div>
-    <div style="margin-top:1rem; font-family:var(--font-mono); font-size:0.55rem; color:var(--grey-dim); letter-spacing:2px; text-align:center;">
-      DEMO: admin / admin123
-    </div>
   </div>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard">
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="sidebar-brand">
       <span class="brand">MK GLOBAL NEXUS</span>
-      <span class="sub">ADMIN PANEL v1.0</span>
+      <span class="sub">ADMIN PANEL v2.0</span>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-item active" onclick="showPage('reports')">
-        <span class="nav-icon">📋</span> Reports
-      </div>
-      <div class="nav-item" onclick="showPage('pending')">
-        <span class="nav-icon">⏳</span> Pending
-      </div>
-      <div class="nav-item" onclick="showPage('investigating')">
-        <span class="nav-icon">🔍</span> Investigating
-      </div>
-      <div class="nav-item" onclick="showPage('closed')">
-        <span class="nav-icon">✅</span> Closed
-      </div>
-      <a href="index.html" class="nav-item">
-        <span class="nav-icon">🌐</span> View Site
-      </a>
+      <div class="nav-item active" onclick="filterReports('all',this)"><span>📋</span> All Reports</div>
+      <div class="nav-item" onclick="filterReports('Pending',this)"><span>⏳</span> Pending</div>
+      <div class="nav-item" onclick="filterReports('Investigating',this)"><span>🔍</span> Investigating</div>
+      <div class="nav-item" onclick="filterReports('Closed',this)"><span>✅</span> Closed</div>
+      <a href="index.html" class="nav-item"><span>🌐</span> View Site</a>
     </nav>
     <div class="sidebar-footer">
       <button class="logout-btn" onclick="doLogout()">[ LOGOUT ]</button>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main-content">
     <div class="topbar">
       <div class="topbar-title" id="pageTitle">All Reports</div>
-      <div class="topbar-info" id="adminInfo">Logged in as: ADMIN | <span id="currentTime"></span></div>
+      <div class="topbar-info">Admin: <span id="adminName">—</span> | <span id="currentTime"></span></div>
     </div>
-
     <div class="page-body">
-      <!-- STATS -->
       <div class="stat-cards">
-        <div class="stat-card blue">
-          <div class="stat-card-num" id="sc-total">0</div>
-          <div class="stat-card-label">Total Reports</div>
-        </div>
-        <div class="stat-card yellow">
-          <div class="stat-card-num" id="sc-pending">0</div>
-          <div class="stat-card-label">Pending</div>
-        </div>
-        <div class="stat-card red">
-          <div class="stat-card-num" id="sc-investigating">0</div>
-          <div class="stat-card-label">Investigating</div>
-        </div>
-        <div class="stat-card green">
-          <div class="stat-card-num" id="sc-closed">0</div>
-          <div class="stat-card-label">Closed</div>
-        </div>
+        <div class="stat-card blue"><div class="stat-card-num" id="sc-total">—</div><div class="stat-card-label">Total Reports</div></div>
+        <div class="stat-card yellow"><div class="stat-card-num" id="sc-pending">—</div><div class="stat-card-label">Pending</div></div>
+        <div class="stat-card red"><div class="stat-card-num" id="sc-investigating">—</div><div class="stat-card-label">Investigating</div></div>
+        <div class="stat-card green"><div class="stat-card-num" id="sc-closed">—</div><div class="stat-card-label">Closed</div></div>
       </div>
-
-      <!-- TABLE -->
       <div class="table-header">
         <div class="table-title">📋 FRAUD REPORTS</div>
-        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
-          <input class="search-box" type="text" placeholder="Search reports..." oninput="filterTable(this.value)" id="searchBox">
-          <button onclick="addDemoReport()" style="background:var(--accent);border:none;color:var(--white);padding:8px 16px;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;cursor:pointer;">+ ADD DEMO</button>
-        </div>
+        <input class="search-box" type="text" placeholder="Search reports..." oninput="searchReports(this.value)">
       </div>
-
       <div class="table-wrap">
-        <table id="reportsTable">
+        <table>
           <thead>
-            <tr>
-              <th>Case ID</th>
-              <th>Name</th>
-              <th>Mobile</th>
-              <th>Case Title</th>
-              <th>Status</th>
-              <th>Submitted</th>
-              <th>Actions</th>
-            </tr>
+            <tr><th>Case ID</th><th>Name</th><th>Mobile</th><th>Case Title</th><th>Status</th><th>Date</th><th>Actions</th></tr>
           </thead>
-          <tbody id="tableBody">
-          </tbody>
+          <tbody id="tableBody"><tr><td colspan="7"><div class="loading">[ LOADING... ]</div></td></tr></tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CASE DETAIL MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="caseModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-title" id="modalTitle">CASE DETAILS</div>
     <div id="modalContent"></div>
     <div class="modal-actions">
-      <button class="btn-modal save" onclick="saveCase()">SAVE CHANGES</button>
-      <button class="btn-modal del" onclick="deleteCase()">DELETE CASE</button>
+      <button class="btn-modal save" onclick="saveCase()">SAVE</button>
+      <button class="btn-modal del" onclick="deleteCase()">DELETE</button>
       <button class="btn-modal cancel" onclick="closeModal()">CLOSE</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ====== AUTH ======
-const ADMIN_USER = 'admin';
-const ADMIN_PASS = 'admin123';
+// Backend API URL - Render पर deploy होने के बाद यह URL change करें
+const API = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000' 
+  : 'https://mk-global-nexus.onrender.com'; // Render URL यहाँ डालें
 
-function doLogin() {
-  const u = document.getElementById('adminUser').value.trim();
-  const p = document.getElementById('adminPass').value.trim();
-  if (u === ADMIN_USER && p === ADMIN_PASS) {
-    document.getElementById('loginScreen').classList.add('hidden');
-    document.getElementById('dashboard').classList.add('active');
-    renderTable(getReports());
-    updateStats();
-    startClock();
-  } else {
-    document.getElementById('loginErr').classList.add('show');
-    setTimeout(() => document.getElementById('loginErr').classList.remove('show'), 3000);
+let currentCaseId = null;
+let currentFilter = 'all';
+let searchTimeout = null;
+
+// ====== AUTH ======
+async function doLogin() {
+  const username = document.getElementById('adminUser').value.trim();
+  const password = document.getElementById('adminPass').value.trim();
+  if (!username || !password) return;
+  try {
+    const res = await fetch(`${API}/api/admin/login`, {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('active');
+      document.getElementById('adminName').textContent = data.username;
+      loadStats(); loadReports(); startClock();
+    } else {
+      document.getElementById('loginErr').classList.add('show');
+      setTimeout(() => document.getElementById('loginErr').classList.remove('show'), 3000);
+    }
+  } catch (e) {
+    // Demo mode fallback
+    if (username === 'admin' && password === 'admin123') {
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('active');
+      document.getElementById('adminName').textContent = 'admin (demo)';
+      loadDemoData(); startClock();
+    } else {
+      document.getElementById('loginErr').classList.add('show');
+      setTimeout(() => document.getElementById('loginErr').classList.remove('show'), 3000);
+    }
   }
 }
 
-function doLogout() {
+async function doLogout() {
+  try { await fetch(`${API}/api/admin/logout`, { method: 'POST', credentials: 'include' }); } catch (e) {}
   document.getElementById('loginScreen').classList.remove('hidden');
   document.getElementById('dashboard').classList.remove('active');
   document.getElementById('adminUser').value = '';
@@ -741,228 +234,142 @@ function doLogout() {
 
 function startClock() {
   const el = document.getElementById('currentTime');
-  function tick() {
-    const now = new Date();
-    el.textContent = now.toLocaleTimeString('en-IN', { hour12: false });
-  }
-  tick();
-  setInterval(tick, 1000);
+  setInterval(() => { el.textContent = new Date().toLocaleTimeString('en-IN', { hour12: false }); }, 1000);
 }
 
-// ====== DATA STORE ======
-function getReports() {
-  return JSON.parse(localStorage.getItem('mkgn_reports') || '[]');
+// ====== STATS ======
+async function loadStats() {
+  try {
+    const res = await fetch(`${API}/api/admin/stats`, { credentials: 'include' });
+    const d = await res.json();
+    document.getElementById('sc-total').textContent = d.total;
+    document.getElementById('sc-pending').textContent = d.pending;
+    document.getElementById('sc-investigating').textContent = d.investigating;
+    document.getElementById('sc-closed').textContent = d.closed;
+  } catch (e) {}
 }
 
-function saveReports(data) {
-  localStorage.setItem('mkgn_reports', JSON.stringify(data));
-}
-
-// Initial seed data
-if (!localStorage.getItem('mkgn_reports')) {
-  const seed = [
-    { id: 'MKNX-001', name: 'Rajesh Kumar', mobile: '+91 98765 43210', email: 'rajesh@email.com', case_title: 'UPI Fraud - Lost ₹45,000', details: 'Received a call from someone claiming to be from SBI. They asked me to share my OTP to update KYC. After sharing, ₹45,000 was debited from my account in 3 transactions.', status: 'Investigating', created_at: '2024-01-15 10:32:00', notes: 'Case escalated to cyber cell.' },
-    { id: 'MKNX-002', name: 'Priya Singh', mobile: '+91 87654 32109', email: 'priya@email.com', case_title: 'Job Scam - Fake Offer Letter', details: 'Got an email with a job offer from a fake company. They asked for ₹8,000 as security deposit. After payment, they stopped responding.', status: 'Pending', created_at: '2024-01-16 14:22:00', notes: '' },
-    { id: 'MKNX-003', name: 'Mohammed Ali', mobile: '+91 76543 21098', email: 'mali@email.com', case_title: 'Investment Fraud - ₹2,00,000 Lost', details: 'Was added to a WhatsApp group that promised 200% returns on crypto investment. Invested ₹2,00,000 over 3 months. When tried to withdraw, account was blocked.', status: 'Closed', created_at: '2024-01-12 09:15:00', notes: 'FIR filed. Case transferred to EOW.' },
-    { id: 'MKNX-004', name: 'Sunita Verma', mobile: '+91 65432 10987', email: 'sunita@email.com', case_title: 'Fake Government Official Threat', details: 'Received a call claiming to be from CBI. Said my Aadhaar is linked to drug trafficking. Asked for ₹50,000 to "clear my name". Demanded payment in gift cards.', status: 'Pending', created_at: '2024-01-17 16:45:00', notes: '' },
-  ];
-  saveReports(seed);
-}
-
-// ====== RENDER ======
-let currentFilter = 'all';
-let currentCaseId = null;
-
-function renderTable(data) {
+// ====== REPORTS ======
+async function loadReports(status = 'all', search = '') {
   const tbody = document.getElementById('tableBody');
-  if (!data.length) {
-    tbody.innerHTML = `<tr><td colspan="7"><div class="no-data">[ NO REPORTS FOUND ]</div></td></tr>`;
-    return;
-  }
+  tbody.innerHTML = '<tr><td colspan="7"><div class="loading">[ LOADING... ]</div></td></tr>';
+  try {
+    let url = `${API}/api/admin/reports?`;
+    if (status !== 'all') url += `status=${status}&`;
+    if (search) url += `search=${encodeURIComponent(search)}`;
+    const res = await fetch(url, { credentials: 'include' });
+    const reports = await res.json();
+    renderTable(reports);
+  } catch (e) { loadDemoData(); }
+}
 
-  tbody.innerHTML = data.map(r => `
+function renderTable(reports) {
+  const tbody = document.getElementById('tableBody');
+  if (!reports.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="no-data">[ NO REPORTS FOUND ]</div></td></tr>'; return; }
+  tbody.innerHTML = reports.map(r => `
     <tr>
-      <td class="td-id">${r.id}</td>
+      <td class="td-id">${r.case_id}</td>
       <td class="td-name">${r.name}</td>
       <td class="td-date">${r.mobile}</td>
-      <td class="td-title">${r.case_title}</td>
+      <td class="td-title" title="${r.case_title}">${r.case_title}</td>
       <td><span class="status-badge ${r.status.toLowerCase()}">${r.status}</span></td>
-      <td class="td-date">${r.created_at.split(' ')[0]}</td>
-      <td>
-        <div class="action-btns">
-          <button class="btn-action" onclick="viewCase('${r.id}')">VIEW</button>
-          <button class="btn-action success" onclick="quickStatus('${r.id}', 'Investigating')">INVESTIGATE</button>
-          <button class="btn-action danger" onclick="confirmDelete('${r.id}')">DELETE</button>
-        </div>
-      </td>
-    </tr>
-  `).join('');
+      <td class="td-date">${new Date(r.created_at).toLocaleDateString('en-IN')}</td>
+      <td><div class="action-btns">
+        <button class="btn-action" onclick='viewCase(${JSON.stringify(r)})'>VIEW</button>
+        <button class="btn-action danger" onclick="quickDelete('${r.case_id}')">DEL</button>
+      </div></td>
+    </tr>`).join('');
 }
 
-function updateStats() {
-  const all = getReports();
-  document.getElementById('sc-total').textContent = all.length;
-  document.getElementById('sc-pending').textContent = all.filter(r => r.status === 'Pending').length;
-  document.getElementById('sc-investigating').textContent = all.filter(r => r.status === 'Investigating').length;
-  document.getElementById('sc-closed').textContent = all.filter(r => r.status === 'Closed').length;
+function filterReports(status, el) {
+  document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = status;
+  const titles = { all: 'All Reports', Pending: 'Pending Cases', Investigating: 'Under Investigation', Closed: 'Closed Cases' };
+  document.getElementById('pageTitle').textContent = titles[status] || 'Reports';
+  loadReports(status);
 }
 
-function showPage(filter) {
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  currentFilter = filter;
-  const all = getReports();
-  let filtered = all;
-  const titles = { reports: 'All Reports', pending: 'Pending Cases', investigating: 'Under Investigation', closed: 'Closed Cases' };
-  document.getElementById('pageTitle').textContent = titles[filter] || 'Reports';
-  if (filter !== 'reports') {
-    filtered = all.filter(r => r.status.toLowerCase() === filter.toLowerCase());
-  }
-  renderTable(filtered);
-}
-
-function filterTable(query) {
-  const all = getReports();
-  const q = query.toLowerCase();
-  const filtered = all.filter(r =>
-    r.name.toLowerCase().includes(q) ||
-    r.case_title.toLowerCase().includes(q) ||
-    r.id.toLowerCase().includes(q) ||
-    r.mobile.includes(q) ||
-    r.status.toLowerCase().includes(q)
-  );
-  renderTable(filtered);
+function searchReports(val) {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => loadReports(currentFilter, val), 400);
 }
 
 // ====== MODAL ======
-function viewCase(id) {
-  const all = getReports();
-  const r = all.find(c => c.id === id);
-  if (!r) return;
-  currentCaseId = id;
-
-  document.getElementById('modalTitle').textContent = `CASE: ${r.id}`;
+function viewCase(r) {
+  currentCaseId = r.case_id;
+  document.getElementById('modalTitle').textContent = `CASE: ${r.case_id}`;
   document.getElementById('modalContent').innerHTML = `
-    <div class="detail-row">
-      <div class="detail-label">Complainant Name</div>
-      <div class="detail-value">${r.name}</div>
-    </div>
-    <div class="detail-row">
-      <div class="detail-label">Mobile</div>
-      <div class="detail-value">${r.mobile}</div>
-    </div>
-    <div class="detail-row">
-      <div class="detail-label">Email</div>
-      <div class="detail-value">${r.email}</div>
-    </div>
-    <div class="detail-row">
-      <div class="detail-label">Case Title</div>
-      <div class="detail-value">${r.case_title}</div>
-    </div>
-    <div class="detail-row">
-      <div class="detail-label">Case Details</div>
-      <div class="detail-value" style="background:rgba(0,0,0,0.3);padding:12px;border-left:2px solid var(--neon-dim);">${r.details}</div>
-    </div>
-    <div class="detail-row">
-      <div class="detail-label">Submitted On</div>
-      <div class="detail-value">${r.created_at}</div>
-    </div>
-    <div class="detail-row">
-      <div class="detail-label">Update Status</div>
+    <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${r.name}</div></div>
+    <div class="detail-row"><div class="detail-label">Mobile</div><div class="detail-value">${r.mobile}</div></div>
+    <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${r.email}</div></div>
+    <div class="detail-row"><div class="detail-label">Case Title</div><div class="detail-value">${r.case_title}</div></div>
+    <div class="detail-row"><div class="detail-label">Details</div><div class="detail-value" style="background:rgba(0,0,0,0.3);padding:12px;border-left:2px solid var(--neon)">${r.details}</div></div>
+    <div class="detail-row"><div class="detail-label">Submitted</div><div class="detail-value">${new Date(r.created_at).toLocaleString('en-IN')}</div></div>
+    <div class="detail-row"><div class="detail-label">Update Status</div>
       <select class="status-select" id="modalStatus">
         <option value="Pending" ${r.status==='Pending'?'selected':''}>Pending</option>
         <option value="Investigating" ${r.status==='Investigating'?'selected':''}>Investigating</option>
         <option value="Closed" ${r.status==='Closed'?'selected':''}>Closed</option>
       </select>
     </div>
-    <div class="detail-row">
-      <div class="detail-label">Admin Notes</div>
-      <textarea class="notes-input" id="modalNotes" placeholder="Add investigation notes...">${r.notes||''}</textarea>
-    </div>
-  `;
+    <div class="detail-row"><div class="detail-label">Notes</div><textarea class="notes-input" id="modalNotes">${r.notes||''}</textarea></div>`;
   document.getElementById('caseModal').classList.add('open');
 }
 
-function closeModal() {
-  document.getElementById('caseModal').classList.remove('open');
-  currentCaseId = null;
-}
+function closeModal() { document.getElementById('caseModal').classList.remove('open'); currentCaseId = null; }
 
-function saveCase() {
+async function saveCase() {
   if (!currentCaseId) return;
-  const all = getReports();
-  const idx = all.findIndex(r => r.id === currentCaseId);
-  if (idx === -1) return;
-  all[idx].status = document.getElementById('modalStatus').value;
-  all[idx].notes = document.getElementById('modalNotes').value;
-  saveReports(all);
-  renderTable(getReports());
-  updateStats();
-  closeModal();
-  showToast('Case updated successfully');
+  const status = document.getElementById('modalStatus').value;
+  const notes = document.getElementById('modalNotes').value;
+  try {
+    const res = await fetch(`${API}/api/admin/reports/${currentCaseId}`, {
+      method: 'PUT', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status, notes })
+    });
+    if (res.ok) { showToast('Case updated!'); closeModal(); loadReports(currentFilter); loadStats(); }
+    else showToast('Update failed', true);
+  } catch (e) { showToast('Case updated (demo)'); closeModal(); }
 }
 
-function deleteCase() {
-  if (!currentCaseId) return;
-  if (!confirm(`Delete case ${currentCaseId}? This cannot be undone.`)) return;
-  const all = getReports().filter(r => r.id !== currentCaseId);
-  saveReports(all);
-  renderTable(getReports());
-  updateStats();
-  closeModal();
-  showToast('Case deleted', true);
+async function deleteCase() {
+  if (!currentCaseId || !confirm(`Delete case ${currentCaseId}?`)) return;
+  try {
+    await fetch(`${API}/api/admin/reports/${currentCaseId}`, { method: 'DELETE', credentials: 'include' });
+    showToast('Case deleted', true); closeModal(); loadReports(currentFilter); loadStats();
+  } catch (e) { showToast('Deleted (demo)', true); closeModal(); }
 }
 
-function confirmDelete(id) {
-  if (!confirm(`Delete case ${id}? This cannot be undone.`)) return;
-  const all = getReports().filter(r => r.id !== id);
-  saveReports(all);
-  renderTable(getReports());
-  updateStats();
-  showToast('Case deleted', true);
+async function quickDelete(case_id) {
+  if (!confirm(`Delete ${case_id}?`)) return;
+  try {
+    await fetch(`${API}/api/admin/reports/${case_id}`, { method: 'DELETE', credentials: 'include' });
+    showToast('Deleted', true); loadReports(currentFilter); loadStats();
+  } catch (e) { showToast('Deleted (demo)', true); }
 }
 
-function quickStatus(id, status) {
-  const all = getReports();
-  const r = all.find(c => c.id === id);
-  if (r) { r.status = status; }
-  saveReports(all);
-  renderTable(getReports());
-  updateStats();
-  showToast(`Status updated to: ${status}`);
-}
-
-// ====== DEMO REPORT ======
-let demoCount = 5;
-function addDemoReport() {
-  const names = ['Amit Sharma', 'Deepa Nair', 'Ravi Patel', 'Kavita Joshi', 'Suresh Babu'];
-  const cases = ['Online Shopping Fraud', 'Phishing Email Attack', 'Lottery Scam Call', 'Fake Loan App Fraud', 'Romance Scam'];
-  const all = getReports();
-  all.unshift({
-    id: `MKNX-${String(demoCount++).padStart(3,'0')}`,
-    name: names[Math.floor(Math.random()*names.length)],
-    mobile: `+91 ${Math.floor(Math.random()*90000+10000)} ${Math.floor(Math.random()*90000+10000)}`,
-    email: 'user@email.com',
-    case_title: cases[Math.floor(Math.random()*cases.length)],
-    details: 'Demo report submitted for testing purposes.',
-    status: 'Pending',
-    created_at: new Date().toISOString().replace('T',' ').substring(0,19),
-    notes: ''
-  });
-  saveReports(all);
-  renderTable(all);
-  updateStats();
-  showToast('Demo report added');
-}
-
-// ====== TOAST ======
 function showToast(msg, isError = false) {
   const t = document.getElementById('toast');
   t.textContent = '[ ' + msg.toUpperCase() + ' ]';
   t.className = 'toast' + (isError ? ' error' : '');
-  void t.offsetWidth;
-  t.classList.add('show');
+  void t.offsetWidth; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Demo data fallback
+function loadDemoData() {
+  const demo = [
+    { case_id:'MKNX-001', name:'Rajesh Kumar', mobile:'+91 98765 43210', email:'r@email.com', case_title:'UPI Fraud - ₹45,000', details:'Received call from fake SBI official asking for OTP.', status:'Investigating', notes:'', created_at: new Date() },
+    { case_id:'MKNX-002', name:'Priya Singh', mobile:'+91 87654 32109', email:'p@email.com', case_title:'Job Scam - Fake Offer', details:'Paid ₹8,000 security deposit. Company disappeared.', status:'Pending', notes:'', created_at: new Date() },
+    { case_id:'MKNX-003', name:'Mohammed Ali', mobile:'+91 76543 21098', email:'m@email.com', case_title:'Investment Fraud ₹2L', details:'WhatsApp crypto group promised 200% returns.', status:'Closed', notes:'FIR filed.', created_at: new Date() },
+  ];
+  renderTable(demo);
+  document.getElementById('sc-total').textContent = 3;
+  document.getElementById('sc-pending').textContent = 1;
+  document.getElementById('sc-investigating').textContent = 1;
+  document.getElementById('sc-closed').textContent = 1;
 }
 </script>
 </body>
