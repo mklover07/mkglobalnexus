@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // ====== MONGODB ======
 // MONGODB_URI में अपना password डालो
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://mkadmin:YOUR_PASSWORD@cluster0.w7s9b7z.mongodb.net/mkglobalnexus?retryWrites=true&w=majority&appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://mkadmin:dsssb1234@cluster0.w7s9b7z.mongodb.net/mkglobalnexus?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(MONGODB_URI)
   .then(async () => {
