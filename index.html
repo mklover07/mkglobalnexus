@@ -347,39 +347,90 @@ footer{background:var(--deep-navy);border-top:1px solid rgba(0,212,255,0.1);padd
 
 <script>
 function toggleNav(){document.getElementById('mobileNav').classList.toggle('open');}
+
 function animateCounters(){
   document.querySelectorAll('[data-target]').forEach(el=>{
     const t=parseInt(el.dataset.target),step=t/125;let c=0;
-    const timer=setInterval(()=>{c=Math.min(c+step,t);el.textContent=Math.floor(c).toLocaleString('en-IN')+'+';if(c>=t)clearInterval(timer);},16);
+    const timer=setInterval(()=>{
+      c=Math.min(c+step,t);
+      el.textContent=Math.floor(c).toLocaleString('en-IN')+'+';
+      if(c>=t)clearInterval(timer);
+    },16);
   });
 }
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});
+
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});
+},{threshold:0.1});
 document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-const sObs=new IntersectionObserver(e=>{if(e[0].isIntersecting){animateCounters();sObs.disconnect();}},{threshold:0.5});
+
+const sObs=new IntersectionObserver(e=>{
+  if(e[0].isIntersecting){animateCounters();sObs.disconnect();}
+},{threshold:0.5});
 sObs.observe(document.querySelector('.stats-bar'));
+
+
+// ===== FIXED FUNCTION =====
 async function submitReport(){
   const name=document.getElementById('r_name').value.trim();
   const mobile=document.getElementById('r_mobile').value.trim();
   const email=document.getElementById('r_email').value.trim();
   const case_title=document.getElementById('r_title').value.trim();
-  const details=document.getElementById('r_details').value.trim();
+  const case_details=document.getElementById('r_details').value.trim();
   const msg=document.getElementById('formMsg');
-  if(!name||!mobile||!email||!case_title||!details){msg.className='form-msg error';msg.textContent='[ ERROR ] All fields are required.';return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){msg.className='form-msg error';msg.textContent='[ ERROR ] Valid email required.';return;}
-  const btn=document.querySelector('.btn-submit');btn.textContent='[ SUBMITTING... ]';btn.disabled=true;
-  try{
-    const res=await fetch('https://mkglobalnexus.onrender.com/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,mobile,email,case_title,details})});
-    const data=await res.json();
-    if(res.ok){msg.className='form-msg success';msg.textContent=`[ SUCCESS ] Case ID: ${data.case_id}. Team will contact you in 48 hours.`;document.querySelectorAll('.form-input,.form-textarea').forEach(el=>el.value='');}
-    else throw new Error();
-  }catch(e){
-    const id='MKNX-'+Date.now().toString().slice(-6);
-    msg.className='form-msg success';msg.textContent=`[ RECEIVED ] Case ID: ${id}. Team will review within 48 hours.`;
-    document.querySelectorAll('.form-input,.form-textarea').forEach(el=>el.value='');
+
+  // validation
+  if(!name||!mobile||!email||!case_title||!case_details){
+    msg.className='form-msg error';
+    msg.textContent='[ ERROR ] All fields are required.';
+    return;
   }
-  btn.textContent='⚠ SUBMIT FRAUD REPORT';btn.disabled=false;
+
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    msg.className='form-msg error';
+    msg.textContent='[ ERROR ] Valid email required.';
+    return;
+  }
+
+  const btn=document.querySelector('.btn-submit');
+  btn.textContent='[ SUBMITTING... ]';
+  btn.disabled=true;
+
+  try{
+    const res=await fetch('https://mkglobalnexus.onrender.com/report',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        name,
+        mobile,
+        email,
+        case_title,
+        case_details
+      })
+    });
+
+    const data=await res.json();
+
+    if(res.ok){
+      msg.className='form-msg success';
+      msg.textContent=`[ SUCCESS ] Case submitted successfully`;
+      document.querySelectorAll('.form-input,.form-textarea').forEach(el=>el.value='');
+    } else {
+      msg.className='form-msg error';
+      msg.textContent='[ ERROR ] Submission failed';
+    }
+
+  }catch(e){
+    msg.className='form-msg error';
+    msg.textContent='[ ERROR ] Server connection failed';
+  }
+
+  btn.textContent='⚠ SUBMIT FRAUD REPORT';
+  btn.disabled=false;
 }
-window.addEventListener('scroll',()=>{document.querySelector('nav').style.background=window.scrollY>50?'rgba(2,4,8,0.97)':'rgba(2,4,8,0.92)';});
+
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.background=
+    window.scrollY>50?'rgba(2,4,8,0.97)':'rgba(2,4,8,0.92)';
+});
 </script>
-</body>
-</html>
