@@ -3,434 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MK Global Nexus — Truth | Investigation | Protection</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-<style>
-:root{--black:#020408;--deep-navy:#040d1a;--navy:#071428;--blue-dark:#0a1f3d;--neon:#00d4ff;--neon-glow:rgba(0,212,255,0.15);--neon-glow-strong:rgba(0,212,255,0.35);--accent:#0057ff;--white:#e8f4ff;--grey:#7a9ab5;--grey-dim:#3a5570;--red:#ff2244;--green:#00ff88;--font-display:'Orbitron',monospace;--font-body:'Rajdhani',sans-serif;--font-mono:'Share Tech Mono',monospace;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--black);color:var(--white);font-family:var(--font-body);font-size:18px;line-height:1.6;overflow-x:hidden;}
-::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--deep-navy);}::-webkit-scrollbar-thumb{background:var(--neon);}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
-.alert-ticker{background:var(--red);overflow:hidden;padding:8px 0;position:relative;z-index:999;}
-.ticker-inner{display:flex;white-space:nowrap;animation:ticker 30s linear infinite;}
-.ticker-item{font-family:var(--font-mono);font-size:0.7rem;color:#fff;letter-spacing:3px;padding:0 3rem;}
-@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(2,4,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,212,255,0.12);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:70px;}
-.nav-brand{text-decoration:none;display:flex;flex-direction:column;}
-.nav-brand .b1{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--neon);letter-spacing:3px;line-height:1;}
-.nav-brand .b2{font-family:var(--font-mono);font-size:0.5rem;color:var(--grey);letter-spacing:4px;}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{font-family:var(--font-body);font-weight:600;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s;}
-.nav-links a:hover{color:var(--neon);}
-.nav-cta{border:1px solid var(--neon)!important;color:var(--neon)!important;padding:8px 20px;font-family:var(--font-display)!important;font-size:0.7rem!important;letter-spacing:2px;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
-.hamburger span{display:block;width:24px;height:2px;background:var(--neon);}
-.mobile-nav{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(4,13,26,0.98);padding:2rem 5%;z-index:999;flex-direction:column;gap:1.5rem;}
-.mobile-nav.open{display:flex;}
-.mobile-nav a{font-family:var(--font-display);font-size:0.85rem;letter-spacing:3px;text-transform:uppercase;color:var(--grey);text-decoration:none;padding-bottom:1rem;border-bottom:1px solid var(--grey-dim);}
-#home{min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(0,87,255,0.12) 0%,transparent 70%);}
-.hero-scan{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon),transparent);animation:scan 4s linear infinite;opacity:0.4;}
-@keyframes scan{0%{top:0;}100%{top:100%;}}
-.hero-content{position:relative;z-index:2;max-width:700px;}
-.hero-eyebrow{font-family:var(--font-mono);font-size:0.75rem;color:var(--neon);letter-spacing:5px;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;}
-.hero-eyebrow::before{content:'';display:inline-block;width:40px;height:1px;background:var(--neon);}
-.hero-title{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1rem;letter-spacing:2px;}
-.line1{color:var(--white);display:block;}.line2{color:transparent;-webkit-text-stroke:1px var(--neon);display:block;}.line3{color:var(--neon);display:block;}
-.hero-tagline{font-family:var(--font-display);font-size:1rem;color:var(--neon);letter-spacing:8px;text-transform:uppercase;margin:1.5rem 0 2rem;padding:12px 0;border-top:1px solid var(--grey-dim);border-bottom:1px solid var(--grey-dim);}
-.hero-desc{font-size:1.05rem;color:var(--grey);line-height:1.8;margin-bottom:2.5rem;max-width:520px;}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-.btn-primary{background:var(--neon);color:var(--black);border:none;padding:14px 32px;font-family:var(--font-display);font-size:0.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
-.btn-primary:hover{background:var(--white);box-shadow:0 0 40px var(--neon-glow-strong);transform:translateY(-2px);}
-.btn-secondary{background:transparent;color:var(--neon);border:1px solid var(--neon);padding:14px 32px;font-family:var(--font-display);font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
-.btn-secondary:hover{background:var(--neon-glow);}
-.hero-visual{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:380px;height:380px;opacity:0.15;}
-.hero-ring{position:absolute;border:1px solid var(--neon);border-radius:50%;animation:rotate 20s linear infinite;}
-.hero-ring:nth-child(1){inset:0;}.hero-ring:nth-child(2){inset:30px;animation-duration:15s;animation-direction:reverse;}.hero-ring:nth-child(3){inset:80px;animation-duration:10s;}
-.hero-ring::before{content:'';position:absolute;top:50%;left:-4px;width:8px;height:8px;background:var(--neon);border-radius:50%;transform:translateY(-50%);}
-@keyframes rotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
-.stats-bar{background:var(--deep-navy);border-top:1px solid rgba(0,212,255,0.1);border-bottom:1px solid rgba(0,212,255,0.1);padding:20px 5%;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;position:relative;z-index:2;}
-.stat-item{text-align:center;}
-.stat-num{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--neon);display:block;}
-.stat-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--grey);letter-spacing:3px;text-transform:uppercase;}
-section{position:relative;z-index:1;}
-.section-pad{padding:100px 5%;}
-.section-label{font-family:var(--font-mono);font-size:0.7rem;color:var(--neon);letter-spacing:5px;text-transform:uppercase;margin-bottom:0.8rem;display:flex;align-items:center;gap:12px;}
-.section-label::before{content:'';display:inline-block;width:30px;height:1px;background:var(--neon);}
-.section-title{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;line-height:1.1;margin-bottom:1rem;letter-spacing:1px;}
-.section-desc{color:var(--grey);font-size:1rem;max-width:580px;line-height:1.8;}
-#domains{background:var(--deep-navy);}
-.domains-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;margin-top:3.5rem;border:1px solid rgba(0,212,255,0.08);}
-.domain-card{background:var(--navy);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background 0.3s;}
-.domain-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--neon);transition:height 0.4s;}
-.domain-card:hover{background:var(--blue-dark);}.domain-card:hover::before{height:100%;}
-.domain-icon{font-size:2.5rem;margin-bottom:1.2rem;display:block;}
-.domain-title{font-family:var(--font-display);font-size:0.9rem;font-weight:700;color:var(--neon);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.8rem;}
-.domain-desc{color:var(--grey);font-size:0.9rem;line-height:1.7;}
-#report{background:var(--black);}
-.report-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:2;}
-.report-info .section-title{color:var(--red);}
-.report-features{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.2rem;}
-.report-feature{display:flex;align-items:flex-start;gap:1rem;}
-.report-feature-icon{width:36px;height:36px;border:1px solid var(--grey-dim);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;color:var(--neon);}
-.report-feature-text strong{display:block;font-size:0.95rem;font-weight:600;color:var(--white);margin-bottom:2px;}
-.report-feature-text span{font-size:0.85rem;color:var(--grey);}
-.report-form{background:var(--deep-navy);border:1px solid rgba(0,212,255,0.12);padding:2.5rem;position:relative;}
-.report-form::before{content:'[ SECURE REPORT FORM ]';font-family:var(--font-mono);font-size:0.6rem;color:var(--neon);letter-spacing:3px;position:absolute;top:-10px;left:20px;background:var(--deep-navy);padding:0 8px;}
-.form-group{margin-bottom:1.4rem;}
-.form-label{display:block;font-family:var(--font-mono);font-size:0.65rem;color:var(--neon);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
-.form-input,.form-textarea{width:100%;background:rgba(0,0,0,0.5);border:1px solid var(--grey-dim);color:var(--white);font-family:var(--font-body);font-size:1rem;padding:12px 16px;outline:none;transition:border-color 0.3s;resize:none;}
-.form-input:focus,.form-textarea:focus{border-color:var(--neon);}
-.form-input::placeholder,.form-textarea::placeholder{color:var(--grey-dim);}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.btn-submit{width:100%;background:var(--red);color:#fff;border:none;padding:16px;font-family:var(--font-display);font-size:0.85rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));}
-.btn-submit:hover{background:#ff4466;box-shadow:0 0 40px rgba(255,34,68,0.4);}
-.form-msg{margin-top:1rem;padding:12px 16px;font-family:var(--font-mono);font-size:0.75rem;letter-spacing:2px;display:none;}
-.form-msg.success{display:block;background:rgba(0,255,136,0.1);border:1px solid var(--green);color:var(--green);}
-.form-msg.error{display:block;background:rgba(255,34,68,0.1);border:1px solid var(--red);color:var(--red);}
-#media{background:var(--deep-navy);}
-.media-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem;}
-.media-card{background:var(--navy);border:1px solid rgba(0,212,255,0.08);padding:2rem;position:relative;overflow:hidden;transition:all 0.3s;text-decoration:none;display:block;}
-.media-card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px var(--neon-glow);}
-.media-platform{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:4px;color:var(--neon);text-transform:uppercase;margin-bottom:0.5rem;}
-.media-icon{font-size:2.5rem;margin-bottom:1rem;}
-.media-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.6rem;letter-spacing:1px;}
-.media-desc{font-size:0.85rem;color:var(--grey);line-height:1.7;}
-.media-link{display:inline-flex;align-items:center;gap:8px;margin-top:1.2rem;font-family:var(--font-display);font-size:0.7rem;letter-spacing:3px;color:var(--neon);text-transform:uppercase;}
-#about{background:var(--black);}
-.about-wrapper{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:center;}
-.founder-frame{width:100%;aspect-ratio:3/4;max-width:320px;background:var(--navy);border:1px solid rgba(0,212,255,0.2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.founder-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,255,0.05) 0%,transparent 50%);}
-.founder-img{width:100%;height:100%;object-fit:cover;position:relative;z-index:2;}
-.founder-placeholder{font-size:6rem;opacity:0.3;position:relative;z-index:2;}
-.founder-corner{position:absolute;width:20px;height:20px;border-color:var(--neon);border-style:solid;}
-.founder-corner.tl{top:8px;left:8px;border-width:2px 0 0 2px;}.founder-corner.tr{top:8px;right:8px;border-width:2px 2px 0 0;}.founder-corner.bl{bottom:8px;left:8px;border-width:0 0 2px 2px;}.founder-corner.br{bottom:8px;right:8px;border-width:0 2px 2px 0;}
-.founder-badge{position:absolute;bottom:-16px;right:-16px;background:var(--neon);color:var(--black);font-family:var(--font-display);font-size:0.65rem;font-weight:700;letter-spacing:2px;padding:8px 16px;text-transform:uppercase;}
-.founder-visual{position:relative;}
-.founder-name{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--neon);letter-spacing:3px;margin:1rem 0 0.3rem;text-transform:uppercase;}
-.founder-title-tag{font-family:var(--font-mono);font-size:0.7rem;color:var(--grey);letter-spacing:4px;text-transform:uppercase;margin-bottom:1.5rem;}
-.about-bio{color:var(--grey);font-size:1rem;line-height:1.9;margin-bottom:2rem;}
-.cred-list{display:flex;flex-direction:column;gap:0.8rem;}
-.cred-item{display:flex;align-items:center;gap:12px;font-size:0.9rem;color:var(--grey);}
-.cred-item::before{content:'◆';color:var(--neon);font-size:0.5rem;flex-shrink:0;}
-#awareness{background:var(--deep-navy);}
-.awareness-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem;}
-.awareness-card{background:var(--navy);border-top:2px solid var(--neon);padding:2rem 1.5rem;transition:all 0.3s;}
-.awareness-card:hover{background:var(--blue-dark);transform:translateY(-4px);}
-.awareness-icon{font-size:2rem;margin-bottom:1rem;}
-.awareness-title{font-family:var(--font-display);font-size:0.85rem;font-weight:700;color:var(--white);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.6rem;}
-.awareness-desc{font-size:0.85rem;color:var(--grey);line-height:1.7;}
-footer{background:var(--deep-navy);border-top:1px solid rgba(0,212,255,0.1);padding:60px 5% 30px;position:relative;z-index:2;}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
-.footer-brand .fb1{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--neon);letter-spacing:3px;display:block;margin-bottom:0.3rem;}
-.footer-brand .fb2{font-family:var(--font-mono);font-size:0.6rem;color:var(--grey);letter-spacing:4px;display:block;margin-bottom:1.2rem;}
-.footer-desc{font-size:0.88rem;color:var(--grey);line-height:1.8;}
-.footer-col h4{font-family:var(--font-display);font-size:0.75rem;font-weight:700;color:var(--neon);letter-spacing:3px;text-transform:uppercase;margin-bottom:1.2rem;}
-.footer-col ul{list-style:none;}
-.footer-col ul li{margin-bottom:0.6rem;}
-.footer-col ul li a{font-size:0.88rem;color:var(--grey);text-decoration:none;transition:color 0.3s;}
-.footer-col ul li a:hover{color:var(--neon);}
-.footer-bottom{border-top:1px solid rgba(0,212,255,0.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-.footer-copy{font-family:var(--font-mono);font-size:0.65rem;color:var(--grey-dim);letter-spacing:2px;}
-.admin-link{position:fixed;bottom:20px;right:20px;background:var(--blue-dark);border:1px solid var(--accent);color:var(--white);font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;padding:8px 14px;text-decoration:none;z-index:500;opacity:0.6;transition:all 0.3s;}
-.admin-link:hover{opacity:1;}
-.fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
-.fade-up.visible{opacity:1;transform:translateY(0);}
-@media(max-width:768px){.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}.hero-visual{display:none;}.report-wrapper{grid-template-columns:1fr;gap:3rem;}.form-row{grid-template-columns:1fr;}.footer-grid{grid-template-columns:1fr;}.stats-bar{gap:2rem;}.section-pad{padding:70px 5%;}.about-wrapper{grid-template-columns:1fr;}}
-</style>
+<title>MK Nexus Intelligence</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="alert-ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">⚠ CYBER FRAUD ALERT: New UPI scams reported in 12 states</span>
-    <span class="ticker-item">🔴 WARNING: Fake government officials demanding money</span>
-    <span class="ticker-item">⚠ SCAM ALERT: Lottery fraud calls on the rise</span>
-    <span class="ticker-item">🔴 NOTICE: Online investment scams targeting youth</span>
-    <span class="ticker-item">⚠ CYBER FRAUD ALERT: New UPI scams reported in 12 states</span>
-    <span class="ticker-item">🔴 WARNING: Fake government officials demanding money</span>
-    <span class="ticker-item">⚠ SCAM ALERT: Lottery fraud calls on the rise</span>
-    <span class="ticker-item">🔴 NOTICE: Online investment scams targeting youth</span>
-  </div>
-</div>
+<!-- NAVBAR -->
+<header class="nav">
+  <div class="logo">MK NEXUS</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#categories">Categories</a>
+    <a href="#tools">Tools</a>
+    <a href="#founder">Founder</a>
+  </nav>
+</header>
 
-<nav>
-  <a href="#home" class="nav-brand">
-    <span class="b1">MK GLOBAL NEXUS</span>
-    <span class="b2">INVESTIGATION · PROTECTION · TRUTH</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#domains">Domains</a></li>
-    <li><a href="#media">Media</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#report" class="nav-cta">⚠ Report Fraud</a></li>
-  </ul>
-  <div class="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
-</nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="overlay"></div>
 
-<div class="mobile-nav" id="mobileNav">
-  <a href="#home" onclick="toggleNav()">Home</a>
-  <a href="#domains" onclick="toggleNav()">Domains</a>
-  <a href="#media" onclick="toggleNav()">Media</a>
-  <a href="#about" onclick="toggleNav()">About</a>
-  <a href="#report" onclick="toggleNav()">⚠ Report Fraud</a>
-</div>
-
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-scan"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">INDIA'S CYBER INVESTIGATION PLATFORM</div>
-    <h1 class="hero-title">
-      <span class="line1">MK GLOBAL</span>
-      <span class="line2">NEXUS</span>
-      <span class="line3">NETWORK</span>
-    </h1>
-    <div class="hero-tagline">Truth &nbsp;|&nbsp; Investigation &nbsp;|&nbsp; Protection</div>
-    <p class="hero-desc">A multi-domain platform dedicated to cyber crime investigation, fraud awareness, investigative journalism, and protecting citizens from digital threats.</p>
-    <div class="hero-btns">
-      <a href="#report" class="btn-primary">⚠ Report Fraud Now</a>
-      <a href="#domains" class="btn-secondary">Explore Platform</a>
+    <h1>CYBER INVESTIGATION <span>AI TOOLKIT</span></h1>
+
+    <p>
+      Find powerful AI tools for OSINT, fraud detection,
+      cyber analysis & digital investigations.
+    </p>
+
+    <div class="search-box">
+      <input id="search" placeholder="Search tools...">
+      <button>Search</button>
     </div>
-  </div>
-  <div class="hero-visual" aria-hidden="true">
-    <div class="hero-ring"></div><div class="hero-ring"></div><div class="hero-ring"></div>
-  </div>
-</section>
 
-<div class="stats-bar">
-  <div class="stat-item"><span class="stat-num" data-target="1200">0</span><span class="stat-label">Cases Reported</span></div>
-  <div class="stat-item"><span class="stat-num" data-target="850">0</span><span class="stat-label">Investigations</span></div>
-  <div class="stat-item"><span class="stat-num" data-target="28">0</span><span class="stat-label">States Covered</span></div>
-  <div class="stat-item"><span class="stat-num" data-target="50000">0</span><span class="stat-label">People Aware</span></div>
-</div>
-
-<section id="domains" class="section-pad">
-  <div class="section-label">Platform Domains</div>
-  <h2 class="section-title">Our Core Areas of Operation</h2>
-  <p class="section-desc">MK Global Nexus operates across six critical domains to ensure comprehensive public protection and awareness.</p>
-  <div class="domains-grid">
-    <div class="domain-card fade-up"><span class="domain-icon">🔍</span><div class="domain-title">Cyber Investigation</div><p class="domain-desc">Deep-dive investigations into cyber crimes, online fraud networks, and digital criminal activities targeting citizens.</p></div>
-    <div class="domain-card fade-up"><span class="domain-icon">📰</span><div class="domain-title">Investigative Media</div><p class="domain-desc">Publishing evidence-backed investigative reports exposing corruption, scams, and systemic failures at all levels.</p></div>
-    <div class="domain-card fade-up"><span class="domain-icon">🛡️</span><div class="domain-title">Fraud Protection</div><p class="domain-desc">Proactive fraud identification, public advisories, and case tracking to protect individuals and businesses.</p></div>
-    <div class="domain-card fade-up"><span class="domain-icon">💰</span><div class="domain-title">Financial Awareness</div><p class="domain-desc">Educating citizens about financial scams, Ponzi schemes, unauthorized investment platforms, and safe practices.</p></div>
-    <div class="domain-card fade-up"><span class="domain-icon">🏥</span><div class="domain-title">Health Awareness</div><p class="domain-desc">Exposing fake medicines, medical fraud, and health misinformation while promoting genuine wellness information.</p></div>
-    <div class="domain-card fade-up"><span class="domain-icon">⚖️</span><div class="domain-title">Legal Support</div><p class="domain-desc">Guidance on legal rights, proper channels for complaint filing, and connecting victims with legitimate legal aid.</p></div>
-  </div>
-</section>
-
-<section id="report" class="section-pad">
-  <div class="report-wrapper">
-    <div class="report-info">
-      <div class="section-label">Action Center</div>
-      <h2 class="section-title">Report Fraud.<br>Get Justice.</h2>
-      <p class="section-desc">Every report matters. Reviewed by our team within 48 hours.</p>
-      <div class="report-features">
-        <div class="report-feature"><div class="report-feature-icon">🔒</div><div class="report-feature-text"><strong>Completely Confidential</strong><span>Your identity is protected throughout</span></div></div>
-        <div class="report-feature"><div class="report-feature-icon">⚡</div><div class="report-feature-text"><strong>48-Hour Response</strong><span>Our team reviews every report promptly</span></div></div>
-        <div class="report-feature"><div class="report-feature-icon">📋</div><div class="report-feature-text"><strong>Case Tracking</strong><span>Track your report status with case ID</span></div></div>
-        <div class="report-feature"><div class="report-feature-icon">🤝</div><div class="report-feature-text"><strong>Legal Assistance</strong><span>Connect with legal aid when required</span></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="report-form">
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" type="text" id="r_name" placeholder="Your full name"></div>
-          <div class="form-group"><label class="form-label">Mobile *</label><input class="form-input" type="tel" id="r_mobile" placeholder="+91 XXXXX XXXXX"></div>
-        </div>
-        <div class="form-group"><label class="form-label">Email *</label><input class="form-input" type="email" id="r_email" placeholder="your@email.com"></div>
-        <div class="form-group"><label class="form-label">Case Title *</label><input class="form-input" type="text" id="r_title" placeholder="Brief title describing the fraud"></div>
-        <div class="form-group"><label class="form-label">Case Details *</label><textarea class="form-textarea" id="r_details" rows="5" placeholder="Describe what happened, when, who was involved..."></textarea></div>
-        <button class="btn-submit" onclick="submitReport()">⚠ SUBMIT FRAUD REPORT</button>
-        <div class="form-msg" id="formMsg"></div>
-      </div>
+    <div class="stats">
+      <div>100+ Tools</div>
+      <div>6 Categories</div>
+      <div>Trusted Investigators</div>
     </div>
   </div>
 </section>
 
-<section id="media" class="section-pad">
-  <div class="section-label">Media & Journalism</div>
-  <h2 class="section-title">MK Global Nexus Media</h2>
-  <p class="section-desc">Follow our investigative journalism and awareness campaigns by Manoj Meena across our media channels.</p>
-  <div class="media-grid">
-    <a href="https://youtube.com/@mkcyberhawk" target="_blank" class="media-card fade-up">
-      <div class="media-platform">YouTube Channel 1</div>
-      <div class="media-icon">▶️</div>
-      <div class="media-title">MK Cyber Hawk</div>
-      <p class="media-desc">Cyber crime investigations, fraud expose videos, digital security awareness and live case discussions by Manoj Meena.</p>
-      <div class="media-link">Visit Channel →</div>
-    </a>
-    <a href="https://youtube.com/@mkxglobalnews" target="_blank" class="media-card fade-up">
-      <div class="media-platform">YouTube Channel 2</div>
-      <div class="media-icon">📡</div>
-      <div class="media-title">MKX Global News</div>
-      <p class="media-desc">Breaking news, investigative reports, and public awareness content covering fraud and corruption across India.</p>
-      <div class="media-link">Visit Channel →</div>
-    </a>
-    <div class="media-card fade-up" style="cursor:default;">
-      <div class="media-platform">Coming Soon</div>
-      <div class="media-icon">📄</div>
-      <div class="media-title">Investigative Reports</div>
-      <p class="media-desc">Long-form investigative articles, case studies, and data-backed research on emerging fraud patterns.</p>
-      <div class="media-link" style="color:var(--grey)">Coming Soon</div>
-    </div>
+<!-- CATEGORIES -->
+<section id="categories">
+  <h2>Explore Categories</h2>
+
+  <div class="cat-grid">
+    <div class="cat-card">OSINT</div>
+    <div class="cat-card">Threat Intel</div>
+    <div class="cat-card">Analysis</div>
+    <div class="cat-card">Deepfake</div>
+    <div class="cat-card">Social Media</div>
+    <div class="cat-card">Automation</div>
   </div>
 </section>
 
-<section id="awareness" class="section-pad">
-  <div class="section-label">Public Awareness</div>
-  <h2 class="section-title">Stay Aware. Stay Safe.</h2>
-  <p class="section-desc">Education is the first line of defence against fraud.</p>
-  <div class="awareness-grid">
-    <div class="awareness-card fade-up"><div class="awareness-icon">📱</div><div class="awareness-title">UPI Fraud</div><p class="awareness-desc">Never share OTP or UPI PIN with anyone claiming to be a bank official.</p></div>
-    <div class="awareness-card fade-up"><div class="awareness-icon">💼</div><div class="awareness-title">Job Scams</div><p class="awareness-desc">Fake job offers demanding registration fees. Verify every employer independently.</p></div>
-    <div class="awareness-card fade-up"><div class="awareness-icon">📈</div><div class="awareness-title">Investment Fraud</div><p class="awareness-desc">Guaranteed high returns are always red flags. Always check SEBI registration.</p></div>
-    <div class="awareness-card fade-up"><div class="awareness-icon">🏥</div><div class="awareness-title">Medical Scams</div><p class="awareness-desc">Fake cures, unapproved treatments, and counterfeit medicines pose serious risks.</p></div>
-    <div class="awareness-card fade-up"><div class="awareness-icon">🏛️</div><div class="awareness-title">Govt. Impersonation</div><p class="awareness-desc">Government never calls demanding payment. Verify all official communications.</p></div>
-    <div class="awareness-card fade-up"><div class="awareness-icon">❤️</div><div class="awareness-title">Romance Scams</div><p class="awareness-desc">Online relationships requiring money transfers. Verify identities before any transaction.</p></div>
-  </div>
+<!-- TOOLS -->
+<section id="tools">
+  <h2>Tools</h2>
+  <div id="tools-container" class="tools-grid"></div>
 </section>
 
-<section id="about" class="section-pad">
-  <div class="about-wrapper">
-    <div class="founder-visual">
-      <div class="founder-frame">
-        <div class="founder-corner tl"></div><div class="founder-corner tr"></div>
-        <div class="founder-corner bl"></div><div class="founder-corner br"></div>
-        <!-- Photo add करने के लिए: नीचे की line uncomment करें और founder-placeholder वाली line delete करें -->
-        <!-- <img src="founder.jpg" alt="Manoj Meena" class="founder-img"> -->
-        <div class="founder-placeholder">👤</div>
-      </div>
-      <div class="founder-badge">FOUNDER</div>
+<!-- FOUNDER -->
+<section id="founder" class="founder">
+  <h2>Founder</h2>
+
+  <div class="founder-box">
+
+    <div class="img-wrap">
+      <img src="assets/founder.jpg">
     </div>
-    <div class="about-content fade-up">
-      <div class="section-label">About the Founder</div>
-      <h2 class="section-title">The Vision Behind<br>MK Global Nexus</h2>
-      <div class="founder-name">MANOJ MEENA</div>
-      <div class="founder-title-tag">Chief Investigator · Cyber Crime Expert · Media Professional</div>
-      <p class="about-bio">
-        Manoj Meena is a dedicated cyber crime investigator, journalist, and public advocate who founded MK Global Nexus with a clear mission — to create India's most trusted platform for fraud reporting, cyber investigation, and public awareness.
-        <br><br>
-        With deep expertise in digital forensics, investigative journalism, and legal advocacy, Manoj has been at the forefront of exposing fraud networks, protecting victims, and empowering citizens with knowledge to defend themselves in the digital age.
+
+    <div class="info">
+      <h3>Manoj Meena</h3>
+      <p class="role">Cyber Crime Analyst | Investigative Journalist</p>
+
+      <p>
+        Founder of MK Global Nexus. Specialized in cyber fraud investigation,
+        scam analysis, and digital intelligence. Dedicated to uncovering fraud
+        networks and protecting victims.
       </p>
-      <div class="cred-list">
-        <div class="cred-item">Cyber Crime Investigation Specialist</div>
-        <div class="cred-item">Investigative Journalist & Media Professional</div>
-        <div class="cred-item">YouTube Creator — MK Cyber Hawk & MKX Global News</div>
-        <div class="cred-item">Public Speaker on Digital Security & Fraud Awareness</div>
-        <div class="cred-item">Legal Rights Advocate for Fraud Victims</div>
+
+      <div class="badges">
+        <span>Fraud Analysis</span>
+        <span>OSINT Expert</span>
+        <span>Cyber Intelligence</span>
       </div>
     </div>
+
   </div>
 </section>
 
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <span class="fb1">MK GLOBAL NEXUS</span>
-      <span class="fb2">INVESTIGATION · PROTECTION · TRUTH</span>
-      <p class="footer-desc">India's trusted cyber investigation and fraud awareness platform. Founded by Manoj Meena. Dedicated to protecting citizens from digital threats.</p>
-    </div>
-    <div class="footer-col"><h4>Platform</h4><ul><li><a href="#home">Home</a></li><li><a href="#domains">Domains</a></li><li><a href="#report">Report Fraud</a></li><li><a href="#media">Media</a></li><li><a href="#about">About</a></li></ul></div>
-    <div class="footer-col"><h4>Media</h4><ul><li><a href="https://youtube.com/@mkcyberhawk" target="_blank">MK Cyber Hawk</a></li><li><a href="https://youtube.com/@mkxglobalnews" target="_blank">MKX Global News</a></li><li><a href="#awareness">Awareness Guide</a></li></ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul><li><a href="https://youtube.com/@mkcyberhawk" target="_blank">YouTube</a></li><li><a href="#report">Report Fraud</a></li><li><a href="admin.html">Admin Login</a></li></ul></div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2024 MK GLOBAL NEXUS — MANOJ MEENA. ALL RIGHTS RESERVED.</span>
-  </div>
+  © 2026 MK Global Nexus
 </footer>
 
-<a href="admin.html" class="admin-link">[ ADMIN ]</a>
-
-<script>
-function toggleNav(){document.getElementById('mobileNav').classList.toggle('open');}
-
-function animateCounters(){
-  document.querySelectorAll('[data-target]').forEach(el=>{
-    const t=parseInt(el.dataset.target),step=t/125;let c=0;
-    const timer=setInterval(()=>{
-      c=Math.min(c+step,t);
-      el.textContent=Math.floor(c).toLocaleString('en-IN')+'+';
-      if(c>=t)clearInterval(timer);
-    },16);
-  });
-}
-
-const obs=new IntersectionObserver(e=>{
-  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});
-},{threshold:0.1});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-
-const sObs=new IntersectionObserver(e=>{
-  if(e[0].isIntersecting){animateCounters();sObs.disconnect();}
-},{threshold:0.5});
-sObs.observe(document.querySelector('.stats-bar'));
-
-
-// ===== FIXED FUNCTION =====
-async function submitReport(){
-  const name=document.getElementById('r_name').value.trim();
-  const mobile=document.getElementById('r_mobile').value.trim();
-  const email=document.getElementById('r_email').value.trim();
-  const case_title=document.getElementById('r_title').value.trim();
-  const case_details=document.getElementById('r_details').value.trim();
-  const msg=document.getElementById('formMsg');
-
-  // validation
-  if(!name||!mobile||!email||!case_title||!case_details){
-    msg.className='form-msg error';
-    msg.textContent='[ ERROR ] All fields are required.';
-    return;
-  }
-
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    msg.className='form-msg error';
-    msg.textContent='[ ERROR ] Valid email required.';
-    return;
-  }
-
-  const btn=document.querySelector('.btn-submit');
-  btn.textContent='[ SUBMITTING... ]';
-  btn.disabled=true;
-
-  try{
-    const res=await fetch('https://mkglobalnexus.onrender.com/report',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        name,
-        mobile,
-        email,
-        case_title,
-        case_details
-      })
-    });
-
-    const data=await res.json();
-
-    if(res.ok){
-      msg.className='form-msg success';
-      msg.textContent=`[ SUCCESS ] Case submitted successfully`;
-      document.querySelectorAll('.form-input,.form-textarea').forEach(el=>el.value='');
-    } else {
-      msg.className='form-msg error';
-      msg.textContent='[ ERROR ] Submission failed';
-    }
-
-  }catch(e){
-    msg.className='form-msg error';
-    msg.textContent='[ ERROR ] Server connection failed';
-  }
-
-  btn.textContent='⚠ SUBMIT FRAUD REPORT';
-  btn.disabled=false;
-}
-
-window.addEventListener('scroll',()=>{
-  document.querySelector('nav').style.background=
-    window.scrollY>50?'rgba(2,4,8,0.97)':'rgba(2,4,8,0.92)';
-});
-</script>
+<script src="script.js"></script>
+</body>
+</html>
